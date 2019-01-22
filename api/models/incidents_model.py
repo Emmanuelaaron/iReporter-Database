@@ -23,3 +23,8 @@ class Incident:
         incident_ = self.database_obj.cursor.fetchone()
         return incident_
         
+    def delete_specific_incident(self, incident_id):
+        query = "DELETE FROM incidents WHERE incident_id = '{}'".format(incident_id)
+        return self.database_obj.cursor.execute(query)
+        
+        
