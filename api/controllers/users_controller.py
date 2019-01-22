@@ -41,15 +41,18 @@ class UsersController:
                 "message": e
             })
 
-        # my_account = User(firstname, lastname, othernames, email, password, username)
-        # my_account = my_account.signup()
-        # my_account["users_id"] = len(users_list.get_all_users()) + 1
-        # users_list.add_user(my_account)
-
-        # return jsonify({
-        #     "status": 201,
-        #     "message": "You've signed up sucessfully!",
-        #     "data": my_account
-        # }), 201
-
-
+    @staticmethod
+    def user_signin():
+        data = request.get_json()
+        email = data.get("email")
+        password = data.get("password")
+        details = [email, password]
+        for detail in details:
+            if Validating_string.is_space(detail) or not Validating_string.characters(detail):
+                    return jsonify({
+                        "status": 400,
+                        "message": "All fields must be filled!"
+                        }), 400
+        return jsonify({
+            "message": "sucessfully loggedin"
+        })
