@@ -12,3 +12,8 @@ def create_incident():
 @incidents_blueprint.route("/red-flags")
 def get_all_incidents():
     return IncidentsController.get_incidents()
+
+@incidents_blueprint.route("/red-flags/<int:incident_id>")
+def get_specific_incident(incident_id):
+    return IncidentsController.get_specific_incident(incident_id)
+
