@@ -40,8 +40,6 @@ class Database_connection():
         email = self.cursor.fetchone()
         return email
 
-    # def check_unique():
-    #     query = "SELECT * FROM users WHERE "
     
     
 
