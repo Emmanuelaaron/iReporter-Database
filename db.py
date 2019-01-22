@@ -28,20 +28,13 @@ class Database_connection():
                                                                  comment TEXT, user_id INTEGER REFERENCES users);"
         self.cursor.execute(incidents_table)
 
-    def check_username(self, username):
-        query = "SELECT username FROM users WHERE username = '{}'".format(username)
+    def checker_captured(self, location, comment):
+        query = """
+            SELECT location, comment FROM incidents\
+            WHERE location = '{}' AND comment = '{}'""".format(location, comment)
         self.cursor.execute(query)
-        user = self.cursor.fetchone()
-        return user
-    
-    def check_email(self, email):
-        query = "SELECT email * FROM users WHERE email = '{}'".format(email)
-        self.cursor.execute(query)
-        email = self.cursor.fetchone()
-        return email
-
-    
-    
+        incident = self.cursor.fetchone()
+        return incident
 
 
 if __name__ == '__main__':
