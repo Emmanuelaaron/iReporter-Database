@@ -16,4 +16,10 @@ class Incident:
         self.database_obj.cursor.execute(all_incidents)
         incidents = self.database_obj.cursor.fetchall()
         return incidents
+
+    def get_specific_incident(self, incident_id):
+        incident = "SELECT * FROM incidents WHERE incident_id = '{}'".format(incident_id)
+        self.database_obj.cursor.execute(incident)
+        incident_ = self.database_obj.cursor.fetchone()
+        return incident_
         

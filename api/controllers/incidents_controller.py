@@ -49,23 +49,16 @@ class IncidentsController:
             "message": incidents_
         })
 
-    # def get_specific_red_flag(self, flag_id):
-    #     if not Validating_string.characters(incidents_list.get_all_incidents()):
-    #         return jsonify({
-    #             "status": 400,
-    #             "message": "No incidents!"
-    #         }), 400
-    #     for incident in incidents_list.get_all_incidents():
-    #         if incident["id"] == flag_id:
-    #             return jsonify({
-    #                 "status": 200,
-    #                 "data": incident
-    #             }), 200
-    #     return jsonify({
-    #         "status": 400,
-    #         "message": "Flag id does not exist"
-    #     }), 400
-
+    @staticmethod
+    def get_specific_incident(incident_id):
+        incidence = incident_obj.get_specific_incident(incident_id)
+        if incidence:
+            return jsonify({
+                    "message": incidence
+                })
+        return jsonify({
+            "message": "incident_id does not exist"
+        })
     # @staticmethod
     # def delete_specific_red_flag(flag_id):
     #     if not Validating_string.characters(incidents_list.get_all_incidents()):
@@ -120,4 +113,4 @@ class IncidentsController:
     #         incident["location"] = new_location
     #         return jsonify({
     #             "message": "You've sucessfully edited the comment!"
-    #         }), 200
+    #         }), 200 
