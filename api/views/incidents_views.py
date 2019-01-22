@@ -17,3 +17,9 @@ def get_all_incidents():
 def get_specific_incident(incident_id):
     return IncidentsController.get_specific_incident(incident_id)
 
+@incidents_blueprint.route("/red-flags/<int:incident_id>", methods=["DELETE"])
+def delete_specific_red_flag(incident_id):
+    return incidence.delete_specific_incident(incident_id)
+
+
+
