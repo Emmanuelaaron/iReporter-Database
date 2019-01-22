@@ -41,48 +41,13 @@ class IncidentsController:
             return jsonify({
                 "message": e
             })
-        # if len(users_list.get_all_users()) == 0:
-        #     return jsonify({
-        #         "status": 400,
-        #         "message": "user not found!"
-        #     }), 400
-        # for incident in incidents_list.get_all_incidents():
-        #     if incident["incidenceType"] == incidenceType and incident["location"] == location:
-        #         return jsonify({
-        #             "status": 400,
-        #             "message": "Incidence already captured!"
-        #         }), 400
 
-    #     for user in users_list.get_all_users():
-    #         if user["users_id"] == user_id:
-    #             my_incident = Incident(incidenceType, location, comment)
-    #             my_incident = my_incident.create_incidence()
-    #             my_incident["createdby"] = user_id
-    #             my_incident["id"] = len(incidents_list.get_all_incidents()) + 1
-    #             incidents_list.add_incident(my_incident)
-    #             return jsonify({
-    #                 "status": 201,
-    #                 "data": [{
-    #                     "id": my_incident["id"],
-    #                     "message": "created red flag record"
-    #                 }]
-    #             }), 201
-    #     return jsonify({
-    #         "status": 400,
-    #         "message": "invalid user id"
-    #     }), 400
-
-    # @staticmethod
-    # def get_all_red_flags():
-    #     if Validating_string.characters(incidents_list.get_all_incidents()):
-    #         return jsonify({
-    #             "status": 200,
-    #             "data": incidents_list.get_all_incidents()
-    #         })
-    #     return jsonify({
-    #         "status": 200,
-    #         "message": "No incidents so far!"
-    #     })
+    @staticmethod
+    def get_incidents():
+        incidents_ = incident_obj.get_all_incidents()
+        return jsonify({
+            "message": incidents_
+        })
 
     # def get_specific_red_flag(self, flag_id):
     #     if not Validating_string.characters(incidents_list.get_all_incidents()):

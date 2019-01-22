@@ -10,4 +10,10 @@ class Incident:
         incident = "INSERT INTO incidents(incident_type, location, status, comment, user_id)\
                     VALUES('{}', '{}', 'draft', '{}', {});".format(incident_type, location, comment, user_id)
         self.database_obj.cursor.execute(incident)
+
+    def get_all_incidents(self):
+        all_incidents = "SELECT * FROM incidents"
+        self.database_obj.cursor.execute(all_incidents)
+        incidents = self.database_obj.cursor.fetchall()
+        return incidents
         
