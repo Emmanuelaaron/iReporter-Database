@@ -70,6 +70,15 @@ class IncidentsController:
             "message": "incident_id does not exist!"
         })
 
+    @staticmethod
+    def edit_comment_specific_incident(incident_id):
+        data = request.get_json()
+        comment = data.get("comment")
+        incident_obj.edit_comment_incident(incident_id, comment)
+        return jsonify({
+            "message": "sucessfully updated"
+        })
+
     # @staticmethod
     # def edit_comment_specific_red_flag(flag_id):
     #     if not Validating_string.characters(incidents_list.get_all_incidents()):
