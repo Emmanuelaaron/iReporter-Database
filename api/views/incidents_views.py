@@ -21,5 +21,10 @@ def get_specific_incident(incident_id):
 def delete_specific_red_flag(incident_id):
     return incidence.delete_specific_incident(incident_id)
 
+@incidents_blueprint.route("/red-flags/<incident_id>/comment", methods=["PATCH"])
+def edit_comment_specific_incident(incident_id):
+    return incidence.edit_comment_specific_incident(incident_id)
+
+
 
 
