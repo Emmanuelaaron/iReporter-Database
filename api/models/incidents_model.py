@@ -27,9 +27,4 @@ class Incident:
         query = "DELETE FROM incidents WHERE incident_id = '{}'".format(incident_id)
         return self.database_obj.cursor.execute(query)
         
-    def edit_comment_incident(self, incident_id, comment):
-        query = "UPDATE incidents SET comment = '{}' \
-                WHERE incident_id = '{}'".format(comment, incident_id)
-        return self.database_obj.cursor.execute(query)
-        
         

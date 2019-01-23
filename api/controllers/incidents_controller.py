@@ -28,35 +28,41 @@ class IncidentsController:
         checker = database_conn.checker_captured(location, comment)
         if checker:
             return jsonify({
+                "status": 200,
                 "message": "already captured!"
-            })
+            }), 200
 
         try:
             incident_obj.create_incidence(incident_type, location, comment, user_id)
             return jsonify({
+                "status": 201,
                 "message": "sucessfully created an incidence"
-            })
+            }), 201
         except psycopg2.IntegrityError as e:
             e = "user_id does not exist!"
             return jsonify({
+                "status": 401,
                 "message": e
-            })
+            }), 401
 
     @staticmethod
     def get_incidents():
         incidents_ = incident_obj.get_all_incidents()
         return jsonify({
+            "status": 200,
             "message": incidents_
-        })
+        }), 200
 
     @staticmethod
     def get_specific_incident(incident_id):
         incidence = incident_obj.get_specific_incident(incident_id)
         if incidence:
             return jsonify({
-                    "message": incidence
+                    "status": 200,
+                    "message": (incidence)
                 })
         return jsonify({
+            "status": 400,
             "message": "incident_id does not exist"
         })
     @staticmethod
@@ -64,6 +70,7 @@ class IncidentsController:
         incidence = incident_obj.delete_specific_incident(incident_id)
         if incidence:
             return jsonify({
+                
                 "message": "sucessfully deleted!"
             })
         return jsonify({
