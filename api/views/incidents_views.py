@@ -1,12 +1,34 @@
-from flask import Blueprint
+from flask import Blueprint, request, jsonify
 from api.controllers.incidents_controller import IncidentsController
-
+from functools import wraps
 
 incidence = IncidentsController()
 incidents_blueprint = Blueprint("incidents", __name__, url_prefix="/api/v2")
 
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = None
+        if 'x-access-token' in request.headers:
+            token = request.headers['x-access-token']
+        if not token:
+            return jsonify({
+                "message": "token missing"
+            })
+        try:
+            data = jwt.decode(token, app.config["SECRET_KEY"])
+            user_email = data["email"]
+        except:
+            return jsonify({
+                "message": "invalid token!"
+            })
+        return f(user_email, *args, **kwargs)
+    return decorated
+
+
 @incidents_blueprint.route("/red-flags", methods=["POST"])
-def create_incident():
+@token_required
+def create_incident(user_email):
     return incidence.create_incidence()
 
 @incidents_blueprint.route("/red-flags")

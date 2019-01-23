@@ -3,6 +3,7 @@ from flask import jsonify, request
 from api.validation import Validating_string, email_validator
 from db import Database_connection
 import psycopg2
+from api.jwt_token import encode_auth_token
 
 database_conn = Database_connection()
 user = User()
@@ -31,7 +32,7 @@ class UsersController:
                     "message": "All fields must be filled!"
                     }), 400
         try:
-            user.signup(username, email, firstname, lastname, othernames, phone_number)
+            user.signup(username, password, email, firstname, lastname, othernames, phone_number)
             return jsonify({
                 "status": 201,
                 "message": "You've signed up sucessfully!"
@@ -54,6 +55,12 @@ class UsersController:
                         "status": 400,
                         "message": "All fields must be filled!"
                         }), 400
+        if database_conn.get_user(data):
+            token = encode_auth_token(email).decode("utf-8")
+            return jsonify({
+                "token": token,
+                "message": "sucessfully loggedin"
+            })
         return jsonify({
-            "message": "sucessfully loggedin"
+            "message": "invalid login credentials!"
         })
