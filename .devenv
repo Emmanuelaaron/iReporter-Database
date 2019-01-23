@@ -1,0 +1,2 @@
+export "DATABASE_NAME"="ireporter"
+export "SECRET_KEY"="uihghdty8767gry82"
