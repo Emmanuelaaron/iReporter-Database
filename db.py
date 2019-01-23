@@ -43,6 +43,12 @@ class Database_connection():
         incident = self.cursor.fetchone()
         return incident
 
+    def drop_tables(self):
+        query = "DROP TABLE IF EXISTS {0} CASCADE"
+        tables = ["users"]
+        for table in tables:
+            self.cursor.execute(query.format(table))
+
 
 if __name__ == '__main__':
     db = Database_connection()

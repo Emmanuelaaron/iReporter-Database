@@ -33,8 +33,9 @@ class UsersController:
         try:
             user.signup(username, email, firstname, lastname, othernames, phone_number)
             return jsonify({
-                "message": "user sucessfully registered"
-            })
+                "status": 201,
+                "message": "You've signed up sucessfully!"
+            }), 201
         except psycopg2.IntegrityError as e:
             e = "Email or username already taken!"
             return jsonify ({
