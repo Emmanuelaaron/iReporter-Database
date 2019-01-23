@@ -1,11 +1,18 @@
 import psycopg2
 import psycopg2.extras
 from pprint import pprint
+import os
 
 class Database_connection():
+
     def __init__(self):
+        if os.getenv("DATABASE_NAME")=="ireporter_test":
+            self.database_name = "ireporter_test"
+        else:
+            self.database_name = "ireporter"
+        print (self.database_name)
         try:
-            self.connect = psycopg2.connect(dbname="ireporter", user="postgres", password='', host="127.0.0.1", port=5432)
+            self.connect = psycopg2.connect(dbname=self.database_name, user="postgres", password='', host="127.0.0.1", port=5432)
             self.connect.autocommit = True
             self.cursor = self.connect.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
             pprint("database running")

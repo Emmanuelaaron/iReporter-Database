@@ -70,7 +70,7 @@ class IncidentsController:
         incidence = incident_obj.delete_specific_incident(incident_id)
         if incidence:
             return jsonify({
-                
+
                 "message": "sucessfully deleted!"
             })
         return jsonify({
