@@ -23,104 +23,125 @@ class IncidentsController:
                 Validating_string.is_space(incident):
                     return jsonify({
                         "status": 400,
-                        "message": "All fields must be filled!"
+                        "error": "All fields must be filled!"
                         }), 400
         checker = database_conn.checker_captured(location, comment)
         if checker:
             return jsonify({
                 "status": 200,
-                "message": "already captured!"
+                "data": "already captured!"
             }), 200
 
         try:
             incident_obj.create_incidence(incident_type, location, comment, user_id)
             return jsonify({
                 "status": 201,
-                "message": "sucessfully created an incidence"
+                "data": [{
+                    "message": "created intervention record" 
+                }]
             }), 201
         except psycopg2.IntegrityError as e:
             e = "user_id does not exist!"
             return jsonify({
                 "status": 401,
-                "message": e
+                "error": e
             }), 401
 
     @staticmethod
-    def get_incidents():
-        incidents_ = incident_obj.get_all_incidents()
+    def get_interventions():
+        incidents_ = incident_obj.get_all_interventions()
         return jsonify({
             "status": 200,
-            "message": incidents_
+            "data": [incidents_]
         }), 200
 
     @staticmethod
-    def get_specific_incident(incident_id):
-        incidence = incident_obj.get_specific_incident(incident_id)
+    def get_red_flags():
+        incidents = incident_obj.get_all_red_flags()
+        return jsonify({
+            "status": 200,
+            "data": [incidents]
+        }), 200
+
+    @staticmethod
+    def get_specific_intervention(incident_id):
+        incidence = incident_obj.get_specific_intervention(incident_id)
         if incidence:
             return jsonify({
                     "status": 200,
-                    "message": (incidence)
-                })
+                    "data": [incidence]
+                }), 200
         return jsonify({
             "status": 400,
-            "message": "incident_id does not exist"
-        })
+            "error": "incident_id does not exist"
+        }), 400
+
     @staticmethod
-    def delete_specific_incident(incident_id):
-        incidence = incident_obj.delete_specific_incident(incident_id)
+    def get_specific_red_flag(incident_id):
+        incidence = incident_obj.get_specific_red_flag(incident_id)
         if incidence:
             return jsonify({
-
-                "message": "sucessfully deleted!"
-            })
+                "status": 200,
+                "data": [incidence]
+            }), 200
         return jsonify({
-            "message": "incident_id does not exist!"
+            "status": 400,
+            "error": "incident_id does not exist"
         })
 
     @staticmethod
-    def edit_comment_specific_incident(incident_id):
+    def delete_specific_intervention(incident_id):
+        if not database_conn.in_data_base(incident_id):
+            return jsonify({
+                "status": 400,
+                "error": "incident_id does not exist!"
+            }), 400
+        incident_obj.delete_specific_intervention(incident_id)
+        return jsonify({
+            "status": 200,
+            "data": [{
+                "id": incident_id,
+                "message": "intervetion record has been deleted"
+            }]
+        })
+    @staticmethod
+    def delete_specific_red_flag(incident_id):
+        if not database_conn.in_data_base(incident_id):
+            return jsonify({
+                "status": 400,
+                "error": "incident_id does not exist!"
+            }), 400
+        incident_obj.delete_specific_red_flag(incident_id)
+        return jsonify({
+            "status": 200,
+            "data": [{
+                "id": incident_id,
+                "message": "red flag record has been deleted"
+            }]
+        }), 200
+
+    @staticmethod
+    def edit_comment_specific_intervention(incident_id):
         data = request.get_json()
         comment = data.get("comment")
-        incident_obj.edit_comment_incident(incident_id, comment)
+        incident_obj.edit_comment_intervention(incident_id, comment)
         return jsonify({
-            "message": "sucessfully updated"
+            "status": 200,
+            "data": [{
+                "id": incident_id,
+                "message": "updated intervention's record comment"
+            }]
+        }), 200
+
+    @staticmethod
+    def edit_comment_specific_red_flag(incident_id):
+        data = request.get_json()
+        comment = data.get("comment")
+        incident_obj.edit_comment_red_flag(incident_id, comment)
+        return jsonify({
+            "status": 200,
+            "data": [{
+                "id": incident_id,
+                "message": "Updated red flag's record comment"
+            }]
         })
-
-    # @staticmethod
-    # def edit_comment_specific_red_flag(flag_id):
-    #     if not Validating_string.characters(incidents_list.get_all_incidents()):
-    #         return jsonify({
-    #             "message": "No incidents!",
-    #             "status": 400
-    #         }), 400
-    #     for incident in incidents_list.get_all_incidents():
-    #         if incident["id"] != flag_id:
-    #             return jsonify({
-    #                 "message": "Flag id does not exist!"
-    #             }), 400
-    #         comment = request.get_json().get("comment")
-    #         new_comment = comment
-    #         incident["comment"] = new_comment
-    #         return jsonify({
-    #             "message": "You've sucessfully edited the comment!"
-    #         }), 200
-
-    # @staticmethod
-    # def edit_location_specific_red_flag(flag_id):
-    #     if not len(incidents_list.get_all_incidents() > 1):
-    #         return jsonify({
-    #             "message": "No incidents!",
-    #             "status": 400
-    #         }), 400
-    #     for incident in incidents_list.get_all_incidents():
-    #         if incident["id"] != flag_id:
-    #             return jsonify({
-    #                 "message": "Flag id does not exist!"
-    #             }), 400
-    #         print (incident["location"])
-    #         location = request.get_json().get("location")
-    #         new_location = location
-    #         incident["location"] = new_location
-    #         return jsonify({
-    #             "message": "You've sucessfully edited the comment!"
-    #         }), 200 

@@ -33,15 +33,19 @@ class UsersController:
                     }), 400
         try:
             user.signup(username, password, email, firstname, lastname, othernames, phone_number)
+            token = encode_auth_token(email).decode("utf-8")
             return jsonify({
                 "status": 201,
-                "message": "You've signed up sucessfully!"
+                "data": [{
+                    "token": token,
+                }]
             }), 201
         except psycopg2.IntegrityError as e:
             e = "Email or username already taken!"
             return jsonify ({
+                "status": 400,
                 "message": e
-            })
+            }), 400
 
     @staticmethod
     def user_signin():
@@ -58,9 +62,11 @@ class UsersController:
         if database_conn.get_user(data):
             token = encode_auth_token(email).decode("utf-8")
             return jsonify({
-                "token": token,
-                "message": "sucessfully loggedin",
-                "status": 200
+                "status": 200,
+                "data": [{
+                    "token": token,
+                    "message": "sucessfully logged in"
+                }]
             }), 200
         return jsonify({
             "message": "invalid login credentials!",
