@@ -38,6 +38,7 @@ class UsersController:
                 "status": 201,
                 "data": [{
                     "token": token,
+                    "message": "You've signed up sucessfully!"
                 }]
             }), 201
         except psycopg2.IntegrityError as e:

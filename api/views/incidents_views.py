@@ -27,7 +27,7 @@ def token_required(f):
     return decorated
 
 
-@incidents_blueprint.route("/red-flags", methods=["POST"])
+@incidents_blueprint.route("/incidence", methods=["POST"])
 @token_required
 def create_incident(user_email):
     return incidence.create_incidence()
