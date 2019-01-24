@@ -1,7 +1,8 @@
 from flask import Blueprint, request, jsonify
 from api.controllers.incidents_controller import IncidentsController
 from functools import wraps
-
+import jwt
+from api import app
 incidence = IncidentsController()
 incidents_blueprint = Blueprint("incidents", __name__, url_prefix="/api/v2")
 
@@ -32,19 +33,24 @@ def create_incident(user_email):
     return incidence.create_incidence()
 
 @incidents_blueprint.route("/red-flags")
-def get_all_incidents():
+@token_required
+def get_all_incidents(user_email):
     return IncidentsController.get_incidents()
 
+
 @incidents_blueprint.route("/red-flags/<int:incident_id>")
-def get_specific_incident(incident_id):
+# @token_required
+def get_specific_incident(user_email, incident_id):
     return IncidentsController.get_specific_incident(incident_id)
 
 @incidents_blueprint.route("/red-flags/<int:incident_id>", methods=["DELETE"])
-def delete_specific_red_flag(incident_id):
+@token_required
+def delete_specific_red_flag(user_email, incident_id):
     return incidence.delete_specific_incident(incident_id)
 
 @incidents_blueprint.route("/red-flags/<incident_id>/comment", methods=["PATCH"])
-def edit_comment_specific_incident(incident_id):
+@token_required
+def edit_comment_specific_incident(user_email, incident_id):
     return incidence.edit_comment_specific_incident(incident_id)
 
 

@@ -2,6 +2,7 @@ import unittest
 from api import app
 from flask import json
 from db import Database_connection
+import jwt
 
 class BaseTest(unittest.TestCase):
 
@@ -17,6 +18,12 @@ class BaseTest(unittest.TestCase):
 	        "othernames": "aaron",
 	        "password": "gftdsjgg",
 	        "phone_number": 9870898967675
+        }
+        self.incidents = {
+            "incident_type": "intervention",
+            "location": "89887499.09, 9767787.90",
+            "comment": "bocken bridge",
+            "user_id": 1
         }
     
     def tearDown(self):
