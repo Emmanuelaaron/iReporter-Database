@@ -58,6 +58,12 @@ class Database_connection():
         result = self.cursor.fetchone()
         return result if True else False
 
+    def in_data_base(self, incident_id):
+        query = "SELECT * FROM incidents WHERE incident_id = '{}'".format(incident_id)
+        self.cursor.execute(query)
+        return self.cursor.fetchone()
+
+
 
 
 if __name__ == '__main__':

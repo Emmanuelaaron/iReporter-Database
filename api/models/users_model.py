@@ -9,5 +9,6 @@ class User():
         user = "INSERT INTO users(username, password, email, firstname, lastname, othernames, phone_number)\
                 VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}');".format(username, password, email, firstname, lastname, othernames, phone_number)
         self.database_obj.cursor.execute(user)
+    
 
 
