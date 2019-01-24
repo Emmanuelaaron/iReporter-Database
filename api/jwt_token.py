@@ -9,7 +9,7 @@ def encode_auth_token(email):
 
     try:
         payload = {
-            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=50),
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=1800),
             "iat": datetime.datetime.utcnow(),
             "email": email
         }

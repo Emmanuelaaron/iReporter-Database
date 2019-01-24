@@ -59,8 +59,10 @@ class UsersController:
             token = encode_auth_token(email).decode("utf-8")
             return jsonify({
                 "token": token,
-                "message": "sucessfully loggedin"
-            })
+                "message": "sucessfully loggedin",
+                "status": 200
+            }), 200
         return jsonify({
-            "message": "invalid login credentials!"
-        })
+            "message": "invalid login credentials!",
+            "status": 400
+        }), 400

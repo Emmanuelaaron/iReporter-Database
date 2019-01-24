@@ -1,0 +1,16 @@
+[report]
+omit = 
+        iReporter/venv/*
+        */venv/*
+        */site-packages/nose/*
+        */__pycache__/*
+        *.pyc
+        */home/travis/virtualenv/*
+        */__init__.py 
+        api/controllers/incidents_controller.py 
+        api/controllers/users_controller.py
+        api/models/incidents_model.py
+        api/models/users_model.py
+        tests/base_test.py
+        tests/test_users.py
+        run.py
