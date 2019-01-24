@@ -19,5 +19,5 @@ script:
   - pytest --cov
   - coverage
 
-after_sucess:
-  - coveralls
+# after_sucess:
+#   - coveralls
