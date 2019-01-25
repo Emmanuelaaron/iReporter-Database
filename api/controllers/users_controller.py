@@ -33,11 +33,9 @@ class UsersController:
                     }), 400
         try:
             user.signup(username, password, email, firstname, lastname, othernames, phone_number)
-            token = encode_auth_token(email).decode("utf-8")
             return jsonify({
                 "status": 201,
                 "data": [{
-                    "token": token,
                     "message": "You've signed up sucessfully!"
                 }]
             }), 201
