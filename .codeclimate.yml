@@ -1,5 +1,5 @@
 exclude_patterns :
 - "tests/test_users.py"
-- "tests/test_redflags.py"
+- "tests/test_incidents.py"
 - "api/models/incidents_model.py"
 - "api/models/users_model.py"
