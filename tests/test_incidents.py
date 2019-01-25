@@ -32,3 +32,107 @@ class TestIncidents(BaseTest):
 
         self.assertEqual(resp.status_code, 201)
         self.assertEqual(reply["data"][0]["message"], "created intervention record")
+
+    def test_get_all_interventions(self):
+        resp = app.test_client(self).post(
+            "api/v2/auth/signup", 
+            content_type="application/json",
+            data=json.dumps(self.user)
+        )
+        resp = app.test_client(self).post(
+            "api/v2/auth/login",
+            content_type="application/json",
+            data=json.dumps({
+                "email": "ema@yahoo.com",
+                "password": "gftdsjgg"
+            })
+        )
+        token = json.loads(resp.data.decode())
+        resp = app.test_client(self).get(
+            "api/v2/interventions",
+            headers={
+                "x-access-token": token["data"][0]["token"]
+            },
+        )
+        reply = json.loads(resp.data.decode())
+
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(reply)
+
+#when the token is missing
+    def test_get_all_interventions_token_missing(self):
+        resp = app.test_client(self).post(
+            "api/v2/auth/signup", 
+            content_type="application/json",
+            data=json.dumps(self.user)
+        )
+        resp = app.test_client(self).post(
+            "api/v2/auth/login",
+            content_type="application/json",
+            data=json.dumps({
+                "email": "ema@yahoo.com",
+                "password": "gftdsjgg"
+            })
+        )
+        token = json.loads(resp.data.decode())
+        resp = app.test_client(self).get(
+            "api/v2/interventions"
+        )
+        reply = json.loads(resp.data.decode())
+
+        self.assertEqual(resp.status_code, 401)
+        self.assertEqual(reply["error"], "token missing")
+
+    def test_get_red_flags(self):
+        resp = app.test_client(self).post(
+            "api/v2/auth/signup", 
+            content_type="application/json",
+            data=json.dumps(self.user)
+        )
+        resp = app.test_client(self).post(
+            "api/v2/auth/login",
+            content_type="application/json",
+            data=json.dumps({
+                "email": "ema@yahoo.com",
+                "password": "gftdsjgg"
+            })
+        )
+        token = json.loads(resp.data.decode())
+        resp = app.test_client(self).get(
+            "api/v2/red-flags",
+            headers={
+                "x-access-token": token["data"][0]["token"]
+            },
+        )
+        reply = json.loads(resp.data.decode())
+
+        self.assertEqual(resp.status_code, 200)
+        self.assertTrue(reply)
+
+    def test_get_specific_intervention(self):
+        resp = app.test_client(self).post(
+            "api/v2/auth/signup", 
+            content_type="application/json",
+            data=json.dumps(self.user)
+        )
+        resp = app.test_client(self).post(
+            "api/v2/auth/login",
+            content_type="application/json",
+            data=json.dumps({
+                "email": "ema@yahoo.com",
+                "password": "gftdsjgg"
+            })
+        )
+        token = json.loads(resp.data.decode())
+        resp = app.test_client(self).get(
+            "api/v2/interventions/1",
+            headers={
+                "x-access-token": token["data"][0]["token"]
+            },
+        )
+        reply = json.loads(resp.data.decode())
+
+        self.assertEqual(resp.status_code, 400)
+        self.assertEqual(reply["error"], "incident_id does not exist")
+
+
