@@ -26,7 +26,7 @@ class UsersController:
             }), 400
         user_details = [firstname, lastname, email, password, username]
         for detail in user_details:
-            if Validating_string.is_space(detail) or not Validating_string.characters(detail):
+            if detail.isspace() or not len(detail) > 0:
                  return jsonify({
                      "status": 400,
                     "message": "All fields must be filled!"
