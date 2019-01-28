@@ -32,7 +32,7 @@ class Incident:
 
     def get_specific_red_flag(self, incident_id):
         incident = "SELECT * FROM incidents WHERE incident_id = '{}'\
-                    AND incident_type = red flag".format(incident_id)
+                    AND incident_type = 'red flag'".format(incident_id)
         self.database_obj.cursor.execute(incident)
         incident_ = self.database_obj.cursor.fetchone()
         return incident_

@@ -87,7 +87,7 @@ class IncidentsController:
         return jsonify({
             "status": 400,
             "error": "incident_id does not exist"
-        })
+        }), 400
 
     @staticmethod
     def delete_specific_intervention(incident_id):
