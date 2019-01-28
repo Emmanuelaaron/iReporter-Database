@@ -23,3 +23,7 @@ class email_validator:
         email_validate = re.compile("(^[a-zA-z0-9_.]+@[a-zA-z0-9-]+\.[a-z]+$)")
         return email_validate.match(email_to_be_validated)
 
+def No_space(lst):
+    for item in lst:
+        return(Validating_string.is_space(item) or\
+         not Validating_string.characters(item))
