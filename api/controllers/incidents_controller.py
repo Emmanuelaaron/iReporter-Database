@@ -8,8 +8,8 @@ incident_obj = Incident()
 database_conn = Database_connection()
 class IncidentsController:
 
-    # @staticmethod
-    def create_incidence(self):
+    @staticmethod
+    def create_incidence():
         data = request.get_json()
         incident_type = data.get("incident_type")
         location = data.get("location")
