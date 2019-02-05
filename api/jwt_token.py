@@ -2,7 +2,7 @@ import jwt
 import datetime
 from functools import wraps
 from flask import request, jsonify
-from db import Database_connection
+from database.db import Database_connection
 
 database_conn = Database_connection()
 def encode_auth_token(email):

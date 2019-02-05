@@ -1,5 +1,5 @@
 import datetime
-from db import Database_connection
+from database.db import Database_connection
 
 class Incident:
     def __init__(self):

@@ -1,7 +1,7 @@
 import unittest
 from api import app
 from flask import json
-from db import Database_connection
+from database.db import Database_connection
 import jwt
 
 class BaseTest(unittest.TestCase):

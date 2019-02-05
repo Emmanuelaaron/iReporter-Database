@@ -1,7 +1,4 @@
 import re
-from db import Database_connection
-
-database_conn = Database_connection()
 class Validating_string:
 
     @staticmethod

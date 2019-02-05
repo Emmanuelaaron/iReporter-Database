@@ -36,32 +36,32 @@ def create_incident(user_email):
 @incidents_blueprint.route("/interventions")
 @token_required
 def get_all_interventions(user_email):
-    return IncidentsController.get_interventions()
+    return incidence.get_interventions()
 
 @incidents_blueprint.route("/red-flags")
 @token_required
 def get_all_red_flags(user_email):
-    return IncidentsController.get_red_flags()
+    return incidence.get_red_flags()
 
 @incidents_blueprint.route("/interventions/<int:incident_id>")
 @token_required
 def get_specific_intervention(user_email, incident_id):
-    return IncidentsController.get_specific_intervention(incident_id)
+    return incidence.get_specific_intervention(incident_id)
 
 @incidents_blueprint.route("/red-flags/<int:incident_id>")
 @token_required
 def get_specific_red_flag(user_email, incident_id):
-    return IncidentsController.get_specific_red_flag(incident_id)
+    return incidence.get_specific_red_flag(incident_id)
 
 @incidents_blueprint.route("/interventions/<int:incident_id>", methods=["DELETE"])
 @token_required
 def delete_specific_intervention(user_email, incident_id):
-    return IncidentsController.delete_specific_intervention(incident_id)
+    return incidence.delete_specific_intervention(incident_id)
 
 @incidents_blueprint.route("/red-flags/<int:incident_id>", methods=["DELETE"])
 @token_required
 def delete_specific_red_flag(user_email, incident_id):
-    return IncidentsController.delete_specific_red_flag(incident_id)
+    return incidence.delete_specific_red_flag(incident_id)
 
 @incidents_blueprint.route("/interventions/<incident_id>/comment", methods=["PATCH"])
 @token_required

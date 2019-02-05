@@ -31,7 +31,7 @@ class TestIncidents(BaseTest):
         reply = json.loads(resp.data.decode())
 
         self.assertEqual(resp.status_code, 201)
-        self.assertEqual(reply["data"][0]["message"], "created intervention record")
+        self.assertEqual(reply["data"][0]["message"], "created incident record")
 
     def test_get_all_interventions(self):
         resp = app.test_client(self).post(
