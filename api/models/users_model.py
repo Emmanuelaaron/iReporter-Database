@@ -1,4 +1,4 @@
-from db import Database_connection
+from database.db import Database_connection
 
 class User():
     def __init__(self):

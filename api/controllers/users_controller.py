@@ -1,7 +1,7 @@
 from api.models.users_model import User
 from flask import jsonify, request
 from api.validation import Validating_string, email_validator
-from db import Database_connection
+from database.db import Database_connection
 import psycopg2
 from api.jwt_token import encode_auth_token
 
@@ -9,8 +9,7 @@ database_conn = Database_connection()
 user = User()
 class UsersController:
 
-    @staticmethod
-    def signupUser():
+    def signupUser(self):
         data = request.get_json()
         firstname = data.get("firstname")
         lastname = data.get("lastname")
@@ -26,7 +25,7 @@ class UsersController:
             }), 400
         user_details = [firstname, lastname, email, password, username]
         for detail in user_details:
-            if detail.isspace() or not len(detail) > 0:
+            if detail.isspace() or not len(detail) > 0 or not detail:
                  return jsonify({
                      "status": 400,
                     "message": "All fields must be filled!"
@@ -46,8 +45,7 @@ class UsersController:
                 "message": e
             }), 400
 
-    @staticmethod
-    def user_signin():
+    def user_signin(self): 
         data = request.get_json()
         email = data.get("email")
         password = data.get("password")
