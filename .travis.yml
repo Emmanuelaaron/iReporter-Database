@@ -4,7 +4,7 @@ python:
 
 env:
   global:
-    - DATABASE_NAME = 'ireporter_test'
+    - DATABASE_URL=postgres://postgres:@localhost:5432/ireporter_test
 
 services:
   - postgresql
