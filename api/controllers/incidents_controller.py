@@ -9,13 +9,14 @@ database_conn = Database_connection()
 class IncidentsController:
 
     def create_incidence(self):
-        data = request.get_json()
-        incident_type = data.get("incident_type")
-        location = data.get("location")
-        comment = data.get("comment")
-        user_id = data.get("user_id")
-
         try:
+            data = request.get_json()
+            incident_type = data.get("incident_type")
+            location = data.get("location")
+            comment = data.get("comment")
+            user_id = data.get("user_id")
+
+            
             incidents_details = [incident_type, location, comment, user_id]
             for incident in incidents_details:
                 if type(incident) is str:
@@ -46,13 +47,13 @@ class IncidentsController:
                     "status": 401,
                     "error": e
                 }), 401
-        except psycopg2.ProgrammingError as e:
-            e = "Oops fields not filled!"
+        
+        except Exception as e:
             return jsonify({
                 "status": 401,
-                "error": e
+                "error": "Oops something went wrong!"
             }), 401
-            
+
     def get_interventions(self):
         incidents_ = incident_obj.get_all_interventions()
         return jsonify({

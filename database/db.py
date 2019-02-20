@@ -7,20 +7,11 @@ import os
 class Database_connection():
 
     def __init__(self):
-        if os.getenv("DATABASE_NAME") == "ireporter_test":
-            self.database_name = "ireporter_test"
-            self.user="postgres"
-            self.password='' 
-            self.host="127.0.0.1" 
-        else:
-            self.database_name = "dckqjk91f93li1"
-            self.user="brlyrkevgtzemb"
-            self.password="0de57d06e656d1197989d386fa8e6ce69be56b0e8d7fcbe9d21918a33c70cb4f" 
-            self.host="ec2-54-227-246-152.compute-1.amazonaws.com"
-        print(self.database_name)
+           
         try:
-            self.connect = psycopg2.connect(
-                dbname=self.database_name, user=self.user, password=self.password, host=self.host, port=5432)
+            self.database_url = os.getenv("DATABASE_URL")
+
+            self.connect = psycopg2.connect(self.database_url)
             self.connect.autocommit = True
             self.cursor = self.connect.cursor(
                 cursor_factory=psycopg2.extras.RealDictCursor)
