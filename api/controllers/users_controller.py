@@ -48,29 +48,34 @@ class UsersController:
         except Exception as e:
             return jsonify({
                 "message": "Oops something went wrong!"
-            })
+            }), 400
 
-    def user_signin(self): 
-        data = request.get_json()
-        email = data.get("email")
-        password = data.get("password")
-        details = [email, password]
-        for detail in details:
-            if Validating_string.is_space(detail) or not Validating_string.characters(detail):
-                    return jsonify({
-                        "status": 400,
-                        "message": "All fields must be filled!"
-                        }), 400
-        if database_conn.get_user(data):
-            token = encode_auth_token(email).decode("utf-8")
+    def user_signin(self):
+        try: 
+            data = request.get_json()
+            email = data.get("email")
+            password = data.get("password")
+            details = [email, password]
+            for detail in details:
+                if Validating_string.is_space(detail) or not Validating_string.characters(detail):
+                        return jsonify({
+                            "status": 400,
+                            "message": "All fields must be filled!"
+                            }), 400
+            if database_conn.get_user(data):
+                token = encode_auth_token(email).decode("utf-8")
+                return jsonify({
+                    "status": 200,
+                    "data": [{
+                        "token": token,
+                        "message": "sucessfully logged in"
+                    }]
+                }), 200
             return jsonify({
-                "status": 200,
-                "data": [{
-                    "token": token,
-                    "message": "sucessfully logged in"
-                }]
-            }), 200
-        return jsonify({
-            "message": "invalid login credentials!",
-            "status": 400
-        }), 400
+                "message": "invalid login credentials!",
+                "status": 400
+            }), 400
+        except Exception as e:
+            return jsonify({
+                "message": "Oops something went wrong!"
+            }), 400
