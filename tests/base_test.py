@@ -28,7 +28,52 @@ class BaseTest(unittest.TestCase):
 	        "othernames": "aaron",
 	        "password": "gftdsjgg",
 	        "phone_number": 9870898967675
-        }        
+        }      
+        self.user3 = {
+            "username": "dorothy",
+            "email": "dora@gmail.com",
+            "firstname": "dora",
+            "lastname": "obbo",
+            "othernames": "cata",
+            "password": "12345",
+            "phone_number": 8987767767
+        }  
+        self.user4 = {
+            "username": "pius",
+            "email": "pius@gmail.com",
+            "firstname": "dora",
+            "lastname": "obbo",
+            "othernames": "cata",
+            "password": "12345",
+            "phone_number": 8987767767
+        } 
+        self.user5 = {
+            "username": "peter",
+            "email": "piusgmailcom",
+            "firstname": "dora",
+            "lastname": "obbo",
+            "othernames": "cata",
+            "password": "12345",
+            "phone_number": 8987767767
+        }   
+        self.user6 = {
+            "username": " ",
+            "email": "pius@gmail.com",
+            "firstname": "dora",
+            "lastname": "obbo",
+            "othernames": "cata",
+            "password": "12345",
+            "phone_number": 8987767767
+        }   
+        self.user7 = {
+            "username": "mordecai",
+            "email": "mordecai@gmail.com",
+            "firstname": "dora",
+            "lastname": "obbo",
+            "othernames": "cata",
+            "password": "12345",
+            "phone_number": 8987767767
+        }
         self.user_login = {
 	        "email": "ema@yahoo.com",
 	        "password": "gftdsjgg"
