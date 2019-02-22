@@ -22,13 +22,15 @@ class Database_connection():
         self.create_tables()
 
     def create_tables(self):
-        users_table = "CREATE TABLE IF NOT EXISTS users(user_id SERIAL PRIMARY KEY, username VARCHAR(50) UNIQUE , password VARCHAR(50),\
-                                                        email VARCHAR(50) UNIQUE, firstname VARCHAR(50) NOT NULL,\
-                                                        lastname VARCHAR(50) NULL, othernames VARCHAR(50) NULL,\
-                                                        phone_number TEXT);"
-        incidents_table = "CREATE TABLE IF NOT EXISTS incidents(incident_id SERIAL PRIMARY KEY, incident_type TEXT NOT NULL, \
-                                                                createdOn TIMESTAMP DEFAULT NOW(), location TEXT, status TEXT,\
-                                                                 comment TEXT, user_id INTEGER REFERENCES users);"
+        users_table = "CREATE TABLE IF NOT EXISTS users(user_id SERIAL PRIMARY KEY, username VARCHAR(50) UNIQUE,\
+                        password VARCHAR(50), email VARCHAR(50) UNIQUE, firstname VARCHAR(50) NOT NULL,\
+                        lastname VARCHAR(50) NULL, othernames VARCHAR(50) NULL,phone_number TEXT,\
+                        registedOn TIMESTAMP DEFAULT NOW(), isAdmin BOOLEAN);"
+
+        incidents_table = "CREATE TABLE IF NOT EXISTS incidents(incident_id SERIAL PRIMARY KEY,\
+                            incident_type TEXT NOT NULL, createdOn TIMESTAMP DEFAULT NOW(), location TEXT,\
+                            status TEXT, comment TEXT, user_id INTEGER REFERENCES users);"
+                            
         self.cursor.execute(users_table)
         self.cursor.execute(incidents_table)
         
