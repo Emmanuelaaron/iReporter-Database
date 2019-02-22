@@ -5,9 +5,9 @@ class User():
         self.database_obj = Database_connection()
 
     def signup(self, username, password, email, firstname, lastname, othernames, phone_number):
-        # isAdmin = False
-        user = "INSERT INTO users(username, password, email, firstname, lastname, othernames, phone_number)\
-                VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}');".format(username, password, email, firstname, lastname, othernames, phone_number)
+        isAdmin = False
+        user = "INSERT INTO users(username, password, email, firstname, lastname, othernames, phone_number, isAdmin)\
+                VALUES ('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}');".format(username, password, email, firstname, lastname, othernames, phone_number, isAdmin)
         self.database_obj.cursor.execute(user)
     
 

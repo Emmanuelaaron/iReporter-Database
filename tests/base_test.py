@@ -117,7 +117,6 @@ class BaseTest(unittest.TestCase):
             data=json.dumps(user))
         token = json.loads(loggedin_user.data.decode())
         return token["data"][0]["token"]
-
     
     def tearDown(self):
         self.db.drop_tables()
